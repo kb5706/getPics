@@ -30,7 +30,8 @@ for each in pic_url:    #把所有网页源代码里的图片遍历
     print(each)
     try:
         pic = requests.get(each, timeout=10)
-    except requests.exceptions.ConnectionError:         #抛掉网络无法连接的图片错误
+    #except requests.exceptions.ConnectionError:         #抛掉网络无法连接的图片错误
+    except requests.exceptions.RequestException
         print('【Error】此图片无法下载')
         continue
     location = 'D:\\Cloud\\' + keyword + '\\' + keyword + '_' + str(i) + '.jpg'     #定义图片存储位置
