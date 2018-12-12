@@ -6,13 +6,11 @@ import os
 print('请输入搜索关键词')
 keyword = str(input())
 
-url = 'http://image.baidu.com/search/flip?tn=baiduimage&ie=utf-8&word=' + keyword + '&ct=201326592&v=flip'
+url= "http://pic.sogou.com/pics?ie=utf8&p=40230504&interV=kKIOkrELjboMmLkEk74TkKIMkLELjb8TkKIMkbELjboJmLkEkL8TkKIKmrELjbkI_701160817&query=" + keyword
 pagecode = requests.get(url).text  #得到搜索页的源码
-#model =  re.compile('"objURL":"(.*?)",', re.S) #用正则表达式定义原图地址的规律
-pic_url = re.findall('"objURL":"(.*?)",',pagecode,re.S)#匹配网页源代码中所有原图的地址
+pic_url = re.findall('"pic_url":"(.*?)",',pagecode,re.S)#匹配网页源代码中所有原图的地址
 i = 1
 path = 'D:\\Cloud\\' + keyword + '\\'
-
 isExists=os.path.exists(path)
 if not isExists:
     # 如果不存在则创建目录
@@ -35,7 +33,7 @@ for each in pic_url:    #把所有网页源代码里的图片遍历
     #except requests.exceptions.
         print('【Error】此图片无法下载')
         continue
-    location = 'D:\\Cloud\\' + keyword + '\\' + keyword + '_' +'Baidu_' + str(i) + '.jpg'     #定义图片存储位置
+    location = 'D:\\Cloud\\' + keyword + '\\' + keyword + '_' +'Sogou_' +str(i) + '.jpg'     #定义图片存储位置
     picObject = open(location, 'wb')                                #打开图片对象，新建 or 重写图片
     picObject.write(pic.content)                                    #写入图片内容
     picObject.close()                                               #关闭图片对象
